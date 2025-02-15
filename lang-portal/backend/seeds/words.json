@@ -1,0 +1,170 @@
+[
+  {
+    "spanish": "hola",
+    "english": "hello",
+    "parts": {
+      "type": "greeting",
+      "formality": "neutral"
+    }
+  },
+  {
+    "spanish": "adiós",
+    "english": "goodbye",
+    "parts": {
+      "type": "greeting",
+      "formality": "neutral"
+    }
+  },
+  {
+    "spanish": "buenos días",
+    "english": "good morning",
+    "parts": {
+      "type": "greeting",
+      "formality": "neutral"
+    }
+  },
+  {
+    "spanish": "buenas tardes",
+    "english": "good afternoon",
+    "parts": {
+      "type": "greeting",
+      "formality": "neutral"
+    }
+  },
+  {
+    "spanish": "buenas noches",
+    "english": "good evening",
+    "parts": {
+      "type": "greeting",
+      "formality": "neutral"
+    }
+  },
+  {
+    "spanish": "uno",
+    "english": "one",
+    "parts": {
+      "type": "number",
+      "category": "cardinal"
+    }
+  },
+  {
+    "spanish": "dos",
+    "english": "two",
+    "parts": {
+      "type": "number",
+      "category": "cardinal"
+    }
+  },
+  {
+    "spanish": "tres",
+    "english": "three",
+    "parts": {
+      "type": "number",
+      "category": "cardinal"
+    }
+  },
+  {
+    "spanish": "rojo",
+    "english": "red",
+    "parts": {
+      "type": "color",
+      "category": "basic"
+    }
+  },
+  {
+    "spanish": "azul",
+    "english": "blue",
+    "parts": {
+      "type": "color",
+      "category": "basic"
+    }
+  },
+  {
+    "spanish": "amarillo",
+    "english": "yellow",
+    "parts": {
+      "type": "color",
+      "category": "basic"
+    }
+  },
+  {
+    "spanish": "padre",
+    "english": "father",
+    "parts": {
+      "type": "family",
+      "formality": "neutral"
+    }
+  },
+  {
+    "spanish": "madre",
+    "english": "mother",
+    "parts": {
+      "type": "family",
+      "formality": "neutral"
+    }
+  },
+  {
+    "spanish": "hermano",
+    "english": "brother",
+    "parts": {
+      "type": "family",
+      "formality": "neutral"
+    }
+  },
+  {
+    "spanish": "hermana",
+    "english": "sister",
+    "parts": {
+      "type": "family",
+      "formality": "neutral"
+    }
+  },
+  {
+    "spanish": "perro",
+    "english": "dog",
+    "parts": {
+      "type": "animal",
+      "category": "common"
+    }
+  },
+  {
+    "spanish": "gato",
+    "english": "cat",
+    "parts": {
+      "type": "animal",
+      "category": "common"
+    }
+  },
+  {
+    "spanish": "casa",
+    "english": "house",
+    "parts": {
+      "type": "noun",
+      "category": "place"
+    }
+  },
+  {
+    "spanish": "libro",
+    "english": "book",
+    "parts": {
+      "type": "noun",
+      "category": "object"
+    }
+  },
+  {
+    "spanish": "mesa",
+    "english": "table",
+    "parts": {
+      "type": "noun",
+      "category": "furniture"
+    }
+  },
+  {
+    "spanish": "silla",
+    "english": "chair",
+    "parts": {
+      "type": "noun",
+      "category": "furniture"
+    }
+  }
+]

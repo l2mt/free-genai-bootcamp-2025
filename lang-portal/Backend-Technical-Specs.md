@@ -31,7 +31,6 @@ backend/
 ## Database Schema
 Our database will be a single sqlite database called `words.db` that will be in the root of the project folder of `backend`
 
-
 We have the following tables:
 - words - stored vocabulary words
 
@@ -40,7 +39,9 @@ We have the following tables:
     | id      | integer   |
     | spanish |  string   |
     | english |  string   |
-    | parts   | json      |
+    | correct_count | integer |
+    | wrong_count | integer |
+
 - words_groups - join table for words and groups many-to-many
 
     | Column  | Type      |
@@ -55,6 +56,7 @@ We have the following tables:
     |---------|-----------|
     | id      | integer   |
     | name    |  string   |
+    | words_count | integer |
 
 - study_sessions - records of study sessions grouping word_review_items
 
@@ -63,6 +65,7 @@ We have the following tables:
     | id |  integer   | 
     | group_id   | integer      |
     | created_at   | datetime      |
+    | end_time | datetime |
     | study_activity_id | integer |
 
 - word_review_items - a record of word practice, determining if the word was correct or not
@@ -74,16 +77,18 @@ We have the following tables:
     | correct   | boolean      |
     | created_at   | datetime      |
 
-- study_activities - records of study activities grouping study sessions
+- study_activities - records of study activities
 
     | Column  | Type      |
     |---------|-----------|
     | id      | integer   |
-    | study_session_id |  integer   |
-    | group_id   | integer      |
-    | created_at   | datetime      |
-
-
+    | name | string |
+    | thumbnail_url | string |
+    | description | string |
+    | launch_url | string |
+    | study_session_id | integer |
+    | group_id | integer |
+    | created_at | datetime |
 
 ### API Endpoints
 
@@ -236,7 +241,7 @@ Response:
     "items_per_page": 100
   }
 }
-}
+
 ```
 
 #### GET /api/words/:id
