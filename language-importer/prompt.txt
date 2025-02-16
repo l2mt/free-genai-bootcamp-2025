@@ -1,0 +1,65 @@
+## Task
+Create Language Importer app 
+
+## Role 
+Senior Software Developer
+
+## Requirements
+- Page with text field and submit button that allows us to import a thematic category for the generation of language vocabulary
+- When submitting that text field, it should hit and api endpoint to invoke an LLM chat completions on the server-side, the pass that information back to the frontend. 
+- The LLM used in the backend is gpt4-o model of OPEN_AI. The api key must be provided in an environment variable
+- The response is a structured json output like the example provided
+<example>
+[
+  {
+    "spanish": "hola",
+    "english": "hello",
+    "parts": {
+      "category": "interjection",
+      "type": "greeting",
+      "formality": "informal"
+    }
+  },
+  {
+    "spanish": "adiós",
+    "english": "goodbye",
+    "parts": {
+      "category": "interjection",
+      "type": "farewell",
+      "formality": "neutral"
+    }
+  },
+  {
+    "spanish": "comer",
+    "english": "to eat",
+    "parts": {
+      "category": "verb",
+      "type": "action",
+      "formality": "neutral"
+    }
+  },
+  {
+    "spanish": "rojo",
+    "english": "red",
+    "parts": {
+      "category": "adjective",
+      "type": "color",
+      "formality": "neutral"
+    }
+  },
+  {
+    "spanish": "usted",
+    "english": "you",
+    "parts": {
+      "category": "pronoun",
+      "type": "personal",
+      "formality": "formal"
+    }
+  }
+]
+
+</exmple>
+- The JSON that is outputted back to the front-end should be copy-able.
+- The JSON must be sent to an input field and must have a copy button to allow been copied to the clipboard and must give an alert that it was copied to the user's clipboard
+
+
