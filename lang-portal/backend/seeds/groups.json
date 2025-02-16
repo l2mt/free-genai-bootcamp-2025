@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "name": "Basic Greetings",
+    "word_count": 20
+  },
+  {
+    "id": 2,
+    "name": "Numbers and Counting",
+    "word_count": 20
+  },
+  {
+    "id": 3,
+    "name": "Food and Dining",
+    "word_count": 20
+  },
+  {
+    "id": 4,
+    "name": "Travel and Transportation",
+    "word_count": 20
+  },
+  {
+    "id": 5,
+    "name": "Family and Relationships",
+    "word_count": 20
+  }
+]

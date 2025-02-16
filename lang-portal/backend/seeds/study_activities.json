@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "Flashcards",
+    "thumbnail_url": "https://example.com/flashcards-icon.png",
+    "description": "Practice vocabulary with interactive flashcards",
+    "launch_url": "/activities/flashcards"
+  },
+  {
+    "id": 2,
+    "name": "Memory Game",
+    "thumbnail_url": "https://example.com/memory-game-icon.png",
+    "description": "Match Spanish and English words in a memory game",
+    "launch_url": "/activities/memory-game"
+  }
+]

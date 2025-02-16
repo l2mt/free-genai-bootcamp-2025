@@ -1,170 +1,602 @@
 [
   {
+    "id": 1,
     "spanish": "hola",
     "english": "hello",
-    "parts": {
-      "type": "greeting",
-      "formality": "neutral"
-    }
+    "parts": {"type": "greeting", "formality": "informal"}
   },
   {
-    "spanish": "adiós",
-    "english": "goodbye",
-    "parts": {
-      "type": "greeting",
-      "formality": "neutral"
-    }
-  },
-  {
+    "id": 2,
     "spanish": "buenos días",
     "english": "good morning",
-    "parts": {
-      "type": "greeting",
-      "formality": "neutral"
-    }
+    "parts": {"type": "greeting", "formality": "formal"}
   },
   {
+    "id": 3,
     "spanish": "buenas tardes",
     "english": "good afternoon",
-    "parts": {
-      "type": "greeting",
-      "formality": "neutral"
-    }
+    "parts": {"type": "greeting", "formality": "formal"}
   },
   {
+    "id": 4,
     "spanish": "buenas noches",
-    "english": "good evening",
-    "parts": {
-      "type": "greeting",
-      "formality": "neutral"
-    }
+    "english": "good night",
+    "parts": {"type": "greeting", "formality": "formal"}
   },
   {
+    "id": 5,
+    "spanish": "adiós",
+    "english": "goodbye",
+    "parts": {"type": "farewell", "formality": "formal"}
+  },
+  {
+    "id": 6,
+    "spanish": "hasta luego",
+    "english": "see you later",
+    "parts": {"type": "farewell", "formality": "informal"}
+  },
+  {
+    "id": 7,
+    "spanish": "gracias",
+    "english": "thank you",
+    "parts": {"type": "courtesy", "formality": "formal"}
+  },
+  {
+    "id": 8,
+    "spanish": "por favor",
+    "english": "please",
+    "parts": {"type": "courtesy", "formality": "formal"}
+  },
+  {
+    "id": 9,
+    "spanish": "de nada",
+    "english": "you're welcome",
+    "parts": {"type": "courtesy", "formality": "informal"}
+  },
+  {
+    "id": 10,
+    "spanish": "mucho gusto",
+    "english": "nice to meet you",
+    "parts": {"type": "greeting", "formality": "formal"}
+  },
+  {
+    "id": 11,
+    "spanish": "¿cómo estás?",
+    "english": "how are you?",
+    "parts": {"type": "greeting", "formality": "informal"}
+  },
+  {
+    "id": 12,
+    "spanish": "bienvenido",
+    "english": "welcome",
+    "parts": {"type": "greeting", "formality": "formal"}
+  },
+  {
+    "id": 13,
+    "spanish": "hasta mañana",
+    "english": "see you tomorrow",
+    "parts": {"type": "farewell", "formality": "informal"}
+  },
+  {
+    "id": 14,
+    "spanish": "perdón",
+    "english": "sorry",
+    "parts": {"type": "courtesy", "formality": "formal"}
+  },
+  {
+    "id": 15,
+    "spanish": "disculpe",
+    "english": "excuse me",
+    "parts": {"type": "courtesy", "formality": "formal"}
+  },
+  {
+    "id": 16,
+    "spanish": "encantado",
+    "english": "delighted",
+    "parts": {"type": "greeting", "formality": "formal"}
+  },
+  {
+    "id": 17,
+    "spanish": "nos vemos",
+    "english": "see you",
+    "parts": {"type": "farewell", "formality": "informal"}
+  },
+  {
+    "id": 18,
+    "spanish": "felicitaciones",
+    "english": "congratulations",
+    "parts": {"type": "courtesy", "formality": "formal"}
+  },
+  {
+    "id": 19,
+    "spanish": "lo siento",
+    "english": "I'm sorry",
+    "parts": {"type": "courtesy", "formality": "formal"}
+  },
+  {
+    "id": 20,
+    "spanish": "cuídate",
+    "english": "take care",
+    "parts": {"type": "farewell", "formality": "informal"}
+  },
+  {
+    "id": 21,
     "spanish": "uno",
     "english": "one",
-    "parts": {
-      "type": "number",
-      "category": "cardinal"
-    }
+    "parts": {"type": "number", "category": "cardinal"}
   },
   {
+    "id": 22,
     "spanish": "dos",
     "english": "two",
-    "parts": {
-      "type": "number",
-      "category": "cardinal"
-    }
+    "parts": {"type": "number", "category": "cardinal"}
   },
   {
+    "id": 23,
     "spanish": "tres",
     "english": "three",
-    "parts": {
-      "type": "number",
-      "category": "cardinal"
-    }
+    "parts": {"type": "number", "category": "cardinal"}
   },
   {
-    "spanish": "rojo",
-    "english": "red",
-    "parts": {
-      "type": "color",
-      "category": "basic"
-    }
+    "id": 24,
+    "spanish": "cuatro",
+    "english": "four",
+    "parts": {"type": "number", "category": "cardinal"}
   },
   {
-    "spanish": "azul",
-    "english": "blue",
-    "parts": {
-      "type": "color",
-      "category": "basic"
-    }
+    "id": 25,
+    "spanish": "cinco",
+    "english": "five",
+    "parts": {"type": "number", "category": "cardinal"}
   },
   {
-    "spanish": "amarillo",
-    "english": "yellow",
-    "parts": {
-      "type": "color",
-      "category": "basic"
-    }
+    "id": 26,
+    "spanish": "seis",
+    "english": "six",
+    "parts": {"type": "number", "category": "cardinal"}
   },
   {
-    "spanish": "padre",
-    "english": "father",
-    "parts": {
-      "type": "family",
-      "formality": "neutral"
-    }
+    "id": 27,
+    "spanish": "siete",
+    "english": "seven",
+    "parts": {"type": "number", "category": "cardinal"}
   },
   {
+    "id": 28,
+    "spanish": "ocho",
+    "english": "eight",
+    "parts": {"type": "number", "category": "cardinal"}
+  },
+  {
+    "id": 29,
+    "spanish": "nueve",
+    "english": "nine",
+    "parts": {"type": "number", "category": "cardinal"}
+  },
+  {
+    "id": 30,
+    "spanish": "diez",
+    "english": "ten",
+    "parts": {"type": "number", "category": "cardinal"}
+  },
+  {
+    "id": 31,
+    "spanish": "primero",
+    "english": "first",
+    "parts": {"type": "number", "category": "ordinal"}
+  },
+  {
+    "id": 32,
+    "spanish": "segundo",
+    "english": "second",
+    "parts": {"type": "number", "category": "ordinal"}
+  },
+  {
+    "id": 33,
+    "spanish": "tercero",
+    "english": "third",
+    "parts": {"type": "number", "category": "ordinal"}
+  },
+  {
+    "id": 34,
+    "spanish": "cuarto",
+    "english": "fourth",
+    "parts": {"type": "number", "category": "ordinal"}
+  },
+  {
+    "id": 35,
+    "spanish": "quinto",
+    "english": "fifth",
+    "parts": {"type": "number", "category": "ordinal"}
+  },
+  {
+    "id": 36,
+    "spanish": "cien",
+    "english": "hundred",
+    "parts": {"type": "number", "category": "cardinal"}
+  },
+  {
+    "id": 37,
+    "spanish": "mil",
+    "english": "thousand",
+    "parts": {"type": "number", "category": "cardinal"}
+  },
+  {
+    "id": 38,
+    "spanish": "millón",
+    "english": "million",
+    "parts": {"type": "number", "category": "cardinal"}
+  },
+  {
+    "id": 39,
+    "spanish": "último",
+    "english": "last",
+    "parts": {"type": "number", "category": "ordinal"}
+  },
+  {
+    "id": 40,
+    "spanish": "siguiente",
+    "english": "next",
+    "parts": {"type": "number", "category": "ordinal"}
+  },
+  {
+    "id": 41,
+    "spanish": "pan",
+    "english": "bread",
+    "parts": {"type": "food", "category": "bakery"}
+  },
+  {
+    "id": 42,
+    "spanish": "agua",
+    "english": "water",
+    "parts": {"type": "food", "category": "beverage"}
+  },
+  {
+    "id": 43,
+    "spanish": "café",
+    "english": "coffee",
+    "parts": {"type": "food", "category": "beverage"}
+  },
+  {
+    "id": 44,
+    "spanish": "leche",
+    "english": "milk",
+    "parts": {"type": "food", "category": "beverage"}
+  },
+  {
+    "id": 45,
+    "spanish": "arroz",
+    "english": "rice",
+    "parts": {"type": "food", "category": "grain"}
+  },
+  {
+    "id": 46,
+    "spanish": "carne",
+    "english": "meat",
+    "parts": {"type": "food", "category": "protein"}
+  },
+  {
+    "id": 47,
+    "spanish": "pollo",
+    "english": "chicken",
+    "parts": {"type": "food", "category": "protein"}
+  },
+  {
+    "id": 48,
+    "spanish": "pescado",
+    "english": "fish",
+    "parts": {"type": "food", "category": "protein"}
+  },
+  {
+    "id": 49,
+    "spanish": "huevo",
+    "english": "egg",
+    "parts": {"type": "food", "category": "protein"}
+  },
+  {
+    "id": 50,
+    "spanish": "queso",
+    "english": "cheese",
+    "parts": {"type": "food", "category": "dairy"}
+  },
+  {
+    "id": 51,
+    "spanish": "manzana",
+    "english": "apple",
+    "parts": {"type": "food", "category": "fruit"}
+  },
+  {
+    "id": 52,
+    "spanish": "plátano",
+    "english": "banana",
+    "parts": {"type": "food", "category": "fruit"}
+  },
+  {
+    "id": 53,
+    "spanish": "naranja",
+    "english": "orange",
+    "parts": {"type": "food", "category": "fruit"}
+  },
+  {
+    "id": 54,
+    "spanish": "tomate",
+    "english": "tomato",
+    "parts": {"type": "food", "category": "vegetable"}
+  },
+  {
+    "id": 55,
+    "spanish": "lechuga",
+    "english": "lettuce",
+    "parts": {"type": "food", "category": "vegetable"}
+  },
+  {
+    "id": 56,
+    "spanish": "zanahoria",
+    "english": "carrot",
+    "parts": {"type": "food", "category": "vegetable"}
+  },
+  {
+    "id": 57,
+    "spanish": "papa",
+    "english": "potato",
+    "parts": {"type": "food", "category": "vegetable"}
+  },
+  {
+    "id": 58,
+    "spanish": "sopa",
+    "english": "soup",
+    "parts": {"type": "food", "category": "dish"}
+  },
+  {
+    "id": 59,
+    "spanish": "ensalada",
+    "english": "salad",
+    "parts": {"type": "food", "category": "dish"}
+  },
+  {
+    "id": 60,
+    "spanish": "postre",
+    "english": "dessert",
+    "parts": {"type": "food", "category": "dish"}
+  },
+  {
+    "id": 61,
+    "spanish": "tren",
+    "english": "train",
+    "parts": {"type": "transport", "category": "public"}
+  },
+  {
+    "id": 62,
+    "spanish": "autobús",
+    "english": "bus",
+    "parts": {"type": "transport", "category": "public"}
+  },
+  {
+    "id": 63,
+    "spanish": "taxi",
+    "english": "taxi",
+    "parts": {"type": "transport", "category": "public"}
+  },
+  {
+    "id": 64,
+    "spanish": "coche",
+    "english": "car",
+    "parts": {"type": "transport", "category": "private"}
+  },
+  {
+    "id": 65,
+    "spanish": "bicicleta",
+    "english": "bicycle",
+    "parts": {"type": "transport", "category": "private"}
+  },
+  {
+    "id": 66,
+    "spanish": "avión",
+    "english": "airplane",
+    "parts": {"type": "transport", "category": "public"}
+  },
+  {
+    "id": 67,
+    "spanish": "barco",
+    "english": "boat",
+    "parts": {"type": "transport", "category": "public"}
+  },
+  {
+    "id": 68,
+    "spanish": "metro",
+    "english": "subway",
+    "parts": {"type": "transport", "category": "public"}
+  },
+  {
+    "id": 69,
+    "spanish": "estación",
+    "english": "station",
+    "parts": {"type": "transport", "category": "location"}
+  },
+  {
+    "id": 70,
+    "spanish": "aeropuerto",
+    "english": "airport",
+    "parts": {"type": "transport", "category": "location"}
+  },
+  {
+    "id": 71,
+    "spanish": "billete",
+    "english": "ticket",
+    "parts": {"type": "transport", "category": "item"}
+  },
+  {
+    "id": 72,
+    "spanish": "maleta",
+    "english": "suitcase",
+    "parts": {"type": "transport", "category": "item"}
+  },
+  {
+    "id": 73,
+    "spanish": "mapa",
+    "english": "map",
+    "parts": {"type": "transport", "category": "item"}
+  },
+  {
+    "id": 74,
+    "spanish": "pasaporte",
+    "english": "passport",
+    "parts": {"type": "transport", "category": "item"}
+  },
+  {
+    "id": 75,
+    "spanish": "conductor",
+    "english": "driver",
+    "parts": {"type": "transport", "category": "person"}
+  },
+  {
+    "id": 76,
+    "spanish": "piloto",
+    "english": "pilot",
+    "parts": {"type": "transport", "category": "person"}
+  },
+  {
+    "id": 77,
+    "spanish": "pasajero",
+    "english": "passenger",
+    "parts": {"type": "transport", "category": "person"}
+  },
+  {
+    "id": 78,
+    "spanish": "viaje",
+    "english": "trip",
+    "parts": {"type": "transport", "category": "concept"}
+  },
+  {
+    "id": 79,
+    "spanish": "llegada",
+    "english": "arrival",
+    "parts": {"type": "transport", "category": "concept"}
+  },
+  {
+    "id": 80,
+    "spanish": "salida",
+    "english": "departure",
+    "parts": {"type": "transport", "category": "concept"}
+  },
+  {
+    "id": 81,
     "spanish": "madre",
     "english": "mother",
-    "parts": {
-      "type": "family",
-      "formality": "neutral"
-    }
+    "parts": {"type": "family", "category": "immediate"}
   },
   {
+    "id": 82,
+    "spanish": "padre",
+    "english": "father",
+    "parts": {"type": "family", "category": "immediate"}
+  },
+  {
+    "id": 83,
     "spanish": "hermano",
     "english": "brother",
-    "parts": {
-      "type": "family",
-      "formality": "neutral"
-    }
+    "parts": {"type": "family", "category": "immediate"}
   },
   {
+    "id": 84,
     "spanish": "hermana",
     "english": "sister",
-    "parts": {
-      "type": "family",
-      "formality": "neutral"
-    }
+    "parts": {"type": "family", "category": "immediate"}
   },
   {
-    "spanish": "perro",
-    "english": "dog",
-    "parts": {
-      "type": "animal",
-      "category": "common"
-    }
+    "id": 85,
+    "spanish": "hijo",
+    "english": "son",
+    "parts": {"type": "family", "category": "immediate"}
   },
   {
-    "spanish": "gato",
-    "english": "cat",
-    "parts": {
-      "type": "animal",
-      "category": "common"
-    }
+    "id": 86,
+    "spanish": "hija",
+    "english": "daughter",
+    "parts": {"type": "family", "category": "immediate"}
   },
   {
-    "spanish": "casa",
-    "english": "house",
-    "parts": {
-      "type": "noun",
-      "category": "place"
-    }
+    "id": 87,
+    "spanish": "abuelo",
+    "english": "grandfather",
+    "parts": {"type": "family", "category": "extended"}
   },
   {
-    "spanish": "libro",
-    "english": "book",
-    "parts": {
-      "type": "noun",
-      "category": "object"
-    }
+    "id": 88,
+    "spanish": "abuela",
+    "english": "grandmother",
+    "parts": {"type": "family", "category": "extended"}
   },
   {
-    "spanish": "mesa",
-    "english": "table",
-    "parts": {
-      "type": "noun",
-      "category": "furniture"
-    }
+    "id": 89,
+    "spanish": "tío",
+    "english": "uncle",
+    "parts": {"type": "family", "category": "extended"}
   },
   {
-    "spanish": "silla",
-    "english": "chair",
-    "parts": {
-      "type": "noun",
-      "category": "furniture"
-    }
+    "id": 90,
+    "spanish": "tía",
+    "english": "aunt",
+    "parts": {"type": "family", "category": "extended"}
+  },
+  {
+    "id": 91,
+    "spanish": "primo",
+    "english": "cousin (male)",
+    "parts": {"type": "family", "category": "extended"}
+  },
+  {
+    "id": 92,
+    "spanish": "prima",
+    "english": "cousin (female)",
+    "parts": {"type": "family", "category": "extended"}
+  },
+  {
+    "id": 93,
+    "spanish": "sobrino",
+    "english": "nephew",
+    "parts": {"type": "family", "category": "extended"}
+  },
+  {
+    "id": 94,
+    "spanish": "sobrina",
+    "english": "niece",
+    "parts": {"type": "family", "category": "extended"}
+  },
+  {
+    "id": 95,
+    "spanish": "esposo",
+    "english": "husband",
+    "parts": {"type": "family", "category": "spouse"}
+  },
+  {
+    "id": 96,
+    "spanish": "esposa",
+    "english": "wife",
+    "parts": {"type": "family", "category": "spouse"}
+  },
+  {
+    "id": 97,
+    "spanish": "suegro",
+    "english": "father-in-law",
+    "parts": {"type": "family", "category": "in-law"}
+  },
+  {
+    "id": 98,
+    "spanish": "suegra",
+    "english": "mother-in-law",
+    "parts": {"type": "family", "category": "in-law"}
+  },
+  {
+    "id": 99,
+    "spanish": "cuñado",
+    "english": "brother-in-law",
+    "parts": {"type": "family", "category": "in-law"}
+  },
+  {
+    "id": 100,
+    "spanish": "cuñada",
+    "english": "sister-in-law",
+    "parts": {"type": "family", "category": "in-law"}
   }
 ]
