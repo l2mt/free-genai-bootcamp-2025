@@ -52,6 +52,17 @@ logs/
 .env.test.local
 .env.production.local
 
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+
+# Test cache
+.pytest_cache/
+.hypothesis/
+
 # Database
 *.db
 *.sqlite3
@@ -65,8 +76,4 @@ logs/
 pip-log.txt
 pip-delete-this-directory.txt
 .tox/
-.coverage.*
 nosetests.xml
-coverage.xml
-*.cover
-.hypothesis/
