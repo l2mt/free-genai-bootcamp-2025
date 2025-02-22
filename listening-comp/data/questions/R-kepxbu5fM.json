@@ -1,0 +1,502 @@
+[
+  {
+    "question": "¿Cuál es la posición de la Tierra con respecto al Sol? ¿La primera, La segunda o La tercera?",
+    "options": [
+      "La primera",
+      "La segunda",
+      "La tercera"
+    ],
+    "answer": "La tercera",
+    "comment": "¡Es el tercer planeta después de Mercurio y Venus!"
+  },
+  {
+    "question": "¿Cómo convierten las plantas la luz en energía? ¿Iluminación, Transpiración o Fotosíntesis?",
+    "options": [
+      "Iluminación",
+      "Transpiración",
+      "Fotosíntesis"
+    ],
+    "answer": "Fotosíntesis",
+    "comment": "¡Muéstrame lo que tienes!"
+  },
+  {
+    "question": "¿Qué país regaló la Estatua de la Libertad a los Estados Unidos? ¿Francia, Canadá o Reino Unido?",
+    "options": [
+      "Francia",
+      "Canadá",
+      "Reino Unido"
+    ],
+    "answer": "Francia",
+    "comment": ""
+  },
+  {
+    "question": "¿Cuál de estos colores no es uno de los colores primarios? ¿Rojo, Verde o Amarillo?",
+    "options": [
+      "Rojo",
+      "Verde",
+      "Amarillo"
+    ],
+    "answer": "Verde",
+    "comment": ""
+  },
+  {
+    "question": "¿Cuándo se celebra Halloween? ¿1 de noviembre, 31 de octubre o 30 de septiembre?",
+    "options": [
+      "1 de noviembre",
+      "31 de octubre",
+      "30 de septiembre"
+    ],
+    "answer": "31 de octubre",
+    "comment": ""
+  },
+  {
+    "question": "¿Cuál es el planeta más pequeño de nuestro sistema solar? ¿Marte, Venus o Mercurio?",
+    "options": [
+      "Marte",
+      "Venus",
+      "Mercurio"
+    ],
+    "answer": "Mercurio",
+    "comment": "¡Sí, es Mercurio!"
+  },
+  {
+    "question": "La ofidiofobia es el miedo a: ¿Las alturas, Las arañas o Las serpientes?",
+    "options": [
+      "Las alturas",
+      "Las arañas",
+      "Las serpientes"
+    ],
+    "answer": "Las serpientes",
+    "comment": "¡El miedo a las serpientes!"
+  },
+  {
+    "question": "¿Cuántos dientes tiene un humano adulto? ¿32, 36 o 38?",
+    "options": [
+      "32",
+      "36",
+      "38"
+    ],
+    "answer": "32",
+    "comment": ""
+  },
+  {
+    "question": "¿Qué fruta es esta? ¿Mango, Fruta del dragón o Papaya?",
+    "options": [
+      "Mango",
+      "Fruta del dragón",
+      "Papaya"
+    ],
+    "answer": "Mango",
+    "comment": "¡Veamos si puedes resolver este!"
+  },
+  {
+    "question": "¿Cuántos continentes hay en la Tierra? ¿5, 6 o 7?",
+    "options": [
+      "5",
+      "6",
+      "7"
+    ],
+    "answer": "7",
+    "comment": ""
+  },
+  {
+    "question": "¿Qué metal es líquido a temperatura ambiente? ¿Hierro, Aluminio o Mercurio?",
+    "options": [
+      "Hierro",
+      "Aluminio",
+      "Mercurio"
+    ],
+    "answer": "Mercurio",
+    "comment": ""
+  },
+  {
+    "question": "¿Cuál es el desierto más grande del mundo? ¿Antártida, Gobi o Sahara?",
+    "options": [
+      "Antártida",
+      "Gobi",
+      "Sahara"
+    ],
+    "answer": "Antártida",
+    "comment": "¡Sí, es Antártida!"
+  },
+  {
+    "question": "¿Qué pieza de ajedrez solo puede moverse en diagonal? ¿El Alfil, El Rey o La Torre?",
+    "options": [
+      "El Alfil",
+      "El Rey",
+      "La Torre"
+    ],
+    "answer": "El Alfil",
+    "comment": ""
+  },
+  {
+    "question": "¿Cuál es la flor nacional de India? ¿La Rosa, El Girasol o El Loto?",
+    "options": [
+      "La Rosa",
+      "El Girasol",
+      "El Loto"
+    ],
+    "answer": "El Loto",
+    "comment": ""
+  },
+  {
+    "question": "¿Qué país tiene la mayor población del mundo? ¿India, China o Estados Unidos?",
+    "options": [
+      "India",
+      "China",
+      "Estados Unidos"
+    ],
+    "answer": "India",
+    "comment": "¡Es India con más de 1.4 mil millones de habitantes!"
+  },
+  {
+    "question": "¿Cuál es el océano más grande del mundo? ¿Océano Índico, Océano Pacífico o Océano Atlántico?",
+    "options": [
+      "Océano Índico",
+      "Océano Pacífico",
+      "Océano Atlántico"
+    ],
+    "answer": "Océano Pacífico",
+    "comment": "¡Sigue así!"
+  },
+  {
+    "question": "¿Qué órgano elimina el exceso de agua y desechos de la sangre? ¿Los Riñones, El Hígado o Los Pulmones?",
+    "options": [
+      "Los Riñones",
+      "El Hígado",
+      "Los Pulmones"
+    ],
+    "answer": "Los Riñones",
+    "comment": ""
+  },
+  {
+    "question": "¿Qué país es la cuna del Renacimiento? ¿Francia, España o Italia?",
+    "options": [
+      "Francia",
+      "España",
+      "Italia"
+    ],
+    "answer": "Italia",
+    "comment": "¡Vamos allá!"
+  },
+  {
+    "question": "¿Cuántas caras tiene un cubo? ¿4, 6 o 8?",
+    "options": [
+      "4",
+      "6",
+      "8"
+    ],
+    "answer": "6",
+    "comment": ""
+  },
+  {
+    "question": "¿Cuál es la cima más alta del mundo? ¿Los Himalayas, Monte Everest o Mont Blanc?",
+    "options": [
+      "Los Himalayas",
+      "Monte Everest",
+      "Mont Blanc"
+    ],
+    "answer": "Monte Everest",
+    "comment": "¡Es el Monte Everest con 8848 metros de altura!"
+  },
+  {
+    "question": "¿Cuál es la unidad de medida de la resistencia eléctrica? ¿Voltio, Amperio o Ohmio?",
+    "options": [
+      "Voltio",
+      "Amperio",
+      "Ohmio"
+    ],
+    "answer": "Ohmio",
+    "comment": "¡Sí, es Ohmio!"
+  },
+  {
+    "question": "¿Cuándo terminó la Segunda Guerra Mundial? ¿1939, 1945 o 1942?",
+    "options": [
+      "1939",
+      "1945",
+      "1942"
+    ],
+    "answer": "1945",
+    "comment": ""
+  },
+  {
+    "question": "¿Cuántas franjas hay en la bandera de los Estados Unidos? ¿7, 13 o 17?",
+    "options": [
+      "7",
+      "13",
+      "17"
+    ],
+    "answer": "13",
+    "comment": "¡Son 13!"
+  },
+  {
+    "question": "¿Cómo se llama el estudio científico de los hongos? ¿Botánica, Micología o Fungología?",
+    "options": [
+      "Botánica",
+      "Micología",
+      "Fungología"
+    ],
+    "answer": "Micología",
+    "comment": "¡Increíble!"
+  },
+  {
+    "question": "¿Cuál es la luna más grande de nuestro sistema solar? ¿Titán, Calisto o Ganímedes?",
+    "options": [
+      "Titán",
+      "Calisto",
+      "Ganímedes"
+    ],
+    "answer": "Ganímedes",
+    "comment": "¡Es Ganímedes! ¡Un satélite de Júpiter!"
+  },
+  {
+    "question": "¿Cómo se llama este animal? ¿Koala, Perezoso o Panda Gigante?",
+    "options": [
+      "Koala",
+      "Perezoso",
+      "Panda Gigante"
+    ],
+    "answer": "Koala",
+    "comment": ""
+  },
+  {
+    "question": "¿Qué país es famoso por sus campos de tulipanes? ¿Alemania, Países Bajos o Suiza?",
+    "options": [
+      "Alemania",
+      "Países Bajos",
+      "Suiza"
+    ],
+    "answer": "Países Bajos",
+    "comment": ""
+  },
+  {
+    "question": "¿En qué ciudad se encuentra el Coliseo? ¿Roma, Milán o Florencia?",
+    "options": [
+      "Roma",
+      "Milán",
+      "Florencia"
+    ],
+    "answer": "Roma",
+    "comment": "¡El Coliseo está en Roma!"
+  },
+  {
+    "question": "El sol es: ¿Una estrella, Una luna o Un planeta?",
+    "options": [
+      "Una estrella",
+      "Una luna",
+      "Un planeta"
+    ],
+    "answer": "Una estrella",
+    "comment": ""
+  },
+  {
+    "question": "¿De qué país es esta bandera? ¿Polonia, Rumania o Eslovenia?",
+    "options": [
+      "Polonia",
+      "Rumania",
+      "Eslovenia"
+    ],
+    "answer": "Eslovenia",
+    "comment": "¿Tienes alguna idea?"
+  },
+  {
+    "question": "¿En qué país se inventó la sauna? ¿Finlandia, Noruega o Suecia?",
+    "options": [
+      "Finlandia",
+      "Noruega",
+      "Suecia"
+    ],
+    "answer": "Finlandia",
+    "comment": "¡Se inventó en Finlandia!"
+  },
+  {
+    "question": "¿De qué país proviene el flamenco? ¿Brasil, México o España?",
+    "options": [
+      "Brasil",
+      "México",
+      "España"
+    ],
+    "answer": "España",
+    "comment": ""
+  },
+  {
+    "question": "¿Quién es este atleta? ¿Carl Lewis, Michael Jordan o Teddy Riner?",
+    "options": [
+      "Carl Lewis",
+      "Michael Jordan",
+      "Teddy Riner"
+    ],
+    "answer": "Michael Jordan",
+    "comment": "¡Increíble!"
+  },
+  {
+    "question": "¿Cuál es la capital de Canadá? ¿Montreal, Toronto o Ottawa?",
+    "options": [
+      "Montreal",
+      "Toronto",
+      "Ottawa"
+    ],
+    "answer": "Ottawa",
+    "comment": "¡Sigue así!"
+  },
+  {
+    "question": "¿Cuál es el símbolo químico del sodio? ¿S, Na o Br?",
+    "options": [
+      "S",
+      "Na",
+      "Br"
+    ],
+    "answer": "Na",
+    "comment": "¡Es Na, del latín natrium!"
+  },
+  {
+    "question": "¿Cuál es la moneda en Japón? ¿Won, Riel o Yen?",
+    "options": [
+      "Won",
+      "Riel",
+      "Yen"
+    ],
+    "answer": "Yen",
+    "comment": ""
+  },
+  {
+    "question": "En la mitología griega, ¿quién es el dios del mar? ¿Zeus, Poseidón o Hades?",
+    "options": [
+      "Zeus",
+      "Poseidón",
+      "Hades"
+    ],
+    "answer": "Poseidón",
+    "comment": ""
+  },
+  {
+    "question": "¿Cómo se llama este dinosaurio? ¿Tiranosaurio, Triceratops o Estegosaurio?",
+    "options": [
+      "Tiranosaurio",
+      "Triceratops",
+      "Estegosaurio"
+    ],
+    "answer": "Triceratops",
+    "comment": ""
+  },
+  {
+    "question": "¿De qué marca es este coche? ¿Mazda, Bentley o Toyota?",
+    "options": [
+      "Mazda",
+      "Bentley",
+      "Toyota"
+    ],
+    "answer": "Toyota",
+    "comment": ""
+  },
+  {
+    "question": "¿En qué año se hundió el Titanic? ¿1906, 1912 o 1920?",
+    "options": [
+      "1906",
+      "1912",
+      "1920"
+    ],
+    "answer": "1912",
+    "comment": ""
+  },
+  {
+    "question": "¿Qué significa el acrónimo pH? ¿Potencial de Helio, Potencial de Altura o Potencial de Hidrógeno?",
+    "options": [
+      "Potencial de Helio",
+      "Potencial de Altura",
+      "Potencial de Hidrógeno"
+    ],
+    "answer": "Potencial de Hidrógeno",
+    "comment": ""
+  },
+  {
+    "question": "¿Cómo se llama la cascada más grande del mundo? ¿Salto Ángel, Cascada de Yosemite o Cataratas del Niágara?",
+    "options": [
+      "Salto Ángel",
+      "Cascada de Yosemite",
+      "Cataratas del Niágara"
+    ],
+    "answer": "Salto Ángel",
+    "comment": "¡Es el Salto Ángel en Venezuela!"
+  },
+  {
+    "question": "¿En qué año se establecieron las Naciones Unidas? ¿1955, 1945 o 1965?",
+    "options": [
+      "1955",
+      "1945",
+      "1965"
+    ],
+    "answer": "1945",
+    "comment": "¡Sigue así!"
+  },
+  {
+    "question": "¿Quién es esta persona famosa? ¿Mahatma Gandhi, Nelson Mandela o Martin Luther King?",
+    "options": [
+      "Mahatma Gandhi",
+      "Nelson Mandela",
+      "Martin Luther King"
+    ],
+    "answer": "Nelson Mandela",
+    "comment": ""
+  },
+  {
+    "question": "¿Qué país es el principal productor de té? ¿China, Reino Unido o Japón?",
+    "options": [
+      "China",
+      "Reino Unido",
+      "Japón"
+    ],
+    "answer": "China",
+    "comment": ""
+  },
+  {
+    "question": "¿Qué significan las letras en H&M? ¿Helene & Maurice, Hennes & Mauritz o Hans & Martha?",
+    "options": [
+      "Helene & Maurice",
+      "Hennes & Mauritz",
+      "Hans & Martha"
+    ],
+    "answer": "Hennes & Mauritz",
+    "comment": ""
+  },
+  {
+    "question": "¿Cuál es la capital de Australia? ¿Melbourne, Sydney o Canberra?",
+    "options": [
+      "Melbourne",
+      "Sydney",
+      "Canberra"
+    ],
+    "answer": "Canberra",
+    "comment": ""
+  },
+  {
+    "question": "¿Cuántos ceros hay en 1 billón? ¿6, 8 o 9?",
+    "options": [
+      "6",
+      "8",
+      "9"
+    ],
+    "answer": "9",
+    "comment": "¡Son 9!"
+  },
+  {
+    "question": "¿Cómo se llama este vegetal? ¿Rábano, Zanahoria o Camote?",
+    "options": [
+      "Rábano",
+      "Zanahoria",
+      "Camote"
+    ],
+    "answer": "Camote",
+    "comment": "¡Increíble!"
+  },
+  {
+    "question": "La capital de Japón es: ¿Kyoto, Tokio o Osaka?",
+    "options": [
+      "Kyoto",
+      "Tokio",
+      "Osaka"
+    ],
+    "answer": "Tokio",
+    "comment": ""
+  }
+]
