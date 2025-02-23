@@ -2,3 +2,4 @@ chromadb
 streamlit
 openai
 youtube-transcript-api
+python-dotenv

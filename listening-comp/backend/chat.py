@@ -1,6 +1,9 @@
 from openai import OpenAI
 import streamlit as st
 from typing import Optional, Dict, Any
+from dotenv import load_dotenv
+
+load_dotenv()  # Load environment variables from .env file
 
 MODEL_ID = "gpt-4o-mini"
 DEFAULT_INFERENCE_CONFIG = {"temperature": 0.6}

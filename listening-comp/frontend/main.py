@@ -246,6 +246,15 @@ def render_rag_stage():
     """Render the RAG implementation stage"""
     st.header("RAG System")
     
+    # Initialize vector store if not in session state
+    if 'vector_store' not in st.session_state:
+        try:
+            from backend.vector_store import QuestionVectorStore
+            st.session_state.vector_store = QuestionVectorStore()
+        except Exception as e:
+            st.error(f"Error initializing vector store: {str(e)}")
+            return
+
     # Query input
     query = st.text_input(
         "Test Query",
@@ -254,15 +263,45 @@ def render_rag_stage():
     
     col1, col2 = st.columns(2)
     
-    with col1:
-        st.subheader("Retrieved Context")
-        # Placeholder for retrieved contexts
-        st.info("Retrieved contexts will appear here")
-        
-    with col2:
-        st.subheader("Generated Response")
-        # Placeholder for LLM response
-        st.info("Generated response will appear here")
+    if query:
+        try:
+            # Search for similar questions
+            similar_questions = st.session_state.vector_store.search_similar_questions(query, n_results=3)
+            
+            with col1:
+                st.subheader("Retrieved Context")
+                for idx, question in enumerate(similar_questions):
+                    with st.expander(f"Similar Question {idx + 1}"):
+                        st.write("Question:", question['question'])
+                        st.write("Similarity Score:", f"{question['similarity_score']:.4f}")
+                        if 'answer' in question:
+                            st.write("Answer:", question['answer'])
+            
+            with col2:
+                st.subheader("Generated Response")
+                if similar_questions:
+                    # Use the most similar question's answer as context
+                    context = "\n".join([
+                        f"Q: {q['question']}\nA: {q.get('answer', 'No answer available')}"
+                        for q in similar_questions
+                    ])
+                    
+                    if 'gpt_chat' in st.session_state:
+                        response = st.session_state.gpt_chat.generate_response(
+                            f"Based on these similar questions and answers:\n{context}\n\nUser question: {query}"
+                        )
+                        st.write(response)
+                    else:
+                        st.warning("Chat system not initialized")
+                else:
+                    st.info("No similar questions found in the database")
+        except Exception as e:
+            st.error(f"Error processing query: {str(e)}")
+    else:
+        with col1:
+            st.info("Enter a question to search for similar content")
+        with col2:
+            st.info("The response will appear here")
 
 def render_interactive_stage():
     """Render the interactive learning stage"""
