@@ -10,6 +10,8 @@ from collections import Counter
 import re
  
 from backend.chat import OpenAIChat
+from backend.question_generator import QuestionGenerator
+from backend.vector_store import QuestionVectorStore
 
 # Page config
 st.set_page_config(
@@ -23,6 +25,14 @@ if 'transcript' not in st.session_state:
     st.session_state.transcript = None
 if 'messages' not in st.session_state:
     st.session_state.messages = []
+if 'question_generator' not in st.session_state:
+    st.session_state.question_generator = None
+if 'current_question' not in st.session_state:
+    st.session_state.current_question = None
+if 'feedback' not in st.session_state:
+    st.session_state.feedback = None
+if 'selected_answer' not in st.session_state:
+    st.session_state.selected_answer = None
 
 def render_header():
     """Render the header section"""
@@ -304,34 +314,132 @@ def render_rag_stage():
             st.info("The response will appear here")
 
 def render_interactive_stage():
-    """Render the interactive learning stage"""
-    st.header("Interactive Learning")
+    """Render the interactive learning stage with question generation"""
+    st.header("Interactive Spanish Learning")
     
-    # Practice type selection
-    practice_type = st.selectbox(
-        "Select Practice Type",
-        ["Dialogue Practice", "Vocabulary Quiz", "Listening Exercise"]
-    )
+    # Initialize question generator if it doesn't exist
+    if not st.session_state.question_generator:
+        with st.spinner("Initializing question generator (this may take a moment on first run)..."):
+            try:
+                # Make sure the vector database is loaded
+                st.info("Setting up the question system... This may take a moment on first run.")
+                # Force recreation of the collection only if necessary
+                QuestionVectorStore._force_recreate = False
+                vector_store = QuestionVectorStore()
+                # Check if the database has indexed questions
+                try:
+                    # Quick search test to verify if there's data
+                    test_result = vector_store.search_similar_questions("test", n_results=1)
+                    if not test_result:
+                        st.warning("Question database appears to be empty. Running initial indexing...")
+                        # Index example questions
+                        question_files = [
+                            os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 
+                                        "data/questions/R-kepxbu5fM.json")
+                        ]
+                        for filename in question_files:
+                            if os.path.exists(filename):
+                                vector_store.index_questions_file(filename)
+                            else:
+                                st.error(f"Question file not found: {filename}")
+                except Exception as e:
+                    st.warning(f"Error checking database: {str(e)}")
+                
+                # Now initialize the question generator
+                st.session_state.question_generator = QuestionGenerator()
+                st.success("Question generator ready!")
+            except Exception as e:
+                st.error(f"Error initializing question generator: {str(e)}")
+                return
     
-    col1, col2 = st.columns([2, 1])
+    # Topic selector
+    topics = ["Astronomy", "Geography", "History", "Science", "Art", "Sports", "Other"]
+    selected_topic = st.selectbox("Select a topic:", topics)
     
-    with col1:
-        st.subheader("Practice Scenario")
-        # Placeholder for scenario
-        st.info("Practice scenario will appear here")
+    # Custom topic field
+    if selected_topic == "Other":
+        custom_topic = st.text_input("Enter a custom topic:")
+        topic_to_use = custom_topic
+    else:
+        topic_to_use = selected_topic
+    
+    # Button to generate question
+    if topic_to_use and st.button("Generate Question"):
+        with st.spinner(f"Generating question about '{topic_to_use}'..."):
+            try:
+                # Generate question using RAG
+                question = st.session_state.question_generator.generate_similar_question(topic_to_use)
+                if question:
+                    st.session_state.current_question = question
+                    st.session_state.feedback = None
+                    st.session_state.selected_answer = None
+                    st.success("Question generated!")
+                else:
+                    st.warning("Could not generate a question. Try a different topic.")
+            except Exception as e:
+                st.error(f"Error generating question: {str(e)}")
+    
+    # Display the generated question
+    if st.session_state.current_question:
+        col1, col2 = st.columns([2, 1])
         
-        # Placeholder for multiple choice
-        options = ["Option 1", "Option 2", "Option 3", "Option 4"]
-        selected = st.radio("Choose your answer:", options)
+        with col1:
+            st.subheader("Scenario (in Spanish)")
+            st.info(st.session_state.current_question.get('Context', 'No context available'))
+            
+            st.subheader("Question (in Spanish)")
+            st.write(st.session_state.current_question.get('Question', 'No question available'))
+            
+            # Display options as buttons
+            st.subheader("Options")
+            options = st.session_state.current_question.get('Options', [])
+            
+            for i, option in enumerate(options, 1):
+                # Disable buttons if there's already feedback
+                disabled = st.session_state.feedback is not None
+                if st.button(f"{i}. {option}", key=f"option_{i}", disabled=disabled):
+                    st.session_state.selected_answer = i
+                    # Get feedback
+                    try:
+                        feedback = st.session_state.question_generator.get_feedback(
+                            st.session_state.current_question, 
+                            st.session_state.selected_answer
+                        )
+                        st.session_state.feedback = feedback
+                        st.rerun()  # Update UI
+                    except Exception as e:
+                        st.error(f"Error getting feedback: {str(e)}")
         
-    with col2:
-        st.subheader("Audio")
-        # Placeholder for audio player
-        st.info("Audio will appear here")
-        
-        st.subheader("Feedback")
-        # Placeholder for feedback
-        st.info("Feedback will appear here")
+        with col2:
+            # Display feedback if it exists
+            if st.session_state.feedback:
+                st.subheader("Feedback")
+                
+                # Show if correct or incorrect
+                is_correct = st.session_state.feedback.get('correct', False)
+                if is_correct:
+                    st.success("Correct answer! 🎉")
+                else:
+                    st.error("Incorrect answer")
+                    
+                # Show explanation
+                st.write("**Explanation:**")
+                st.write(st.session_state.feedback.get('explanation', 'No explanation available'))
+                
+                # Show correct answer
+                correct_answer_num = st.session_state.feedback.get('correct_answer', 1)
+                if correct_answer_num <= len(options):
+                    st.write(f"**Correct answer:** {correct_answer_num}. {options[correct_answer_num-1]}")
+                
+                # Show button for new question
+                if st.button("Generate New Question"):
+                    st.session_state.current_question = None
+                    st.session_state.feedback = None
+                    st.session_state.selected_answer = None
+                    st.rerun()  # Update UI
+    else:
+        # Message when there's no generated question
+        st.info("Select a topic and click 'Generate Question' to start.")
 
 def main():
     render_header()

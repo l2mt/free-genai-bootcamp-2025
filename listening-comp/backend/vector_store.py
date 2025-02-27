@@ -2,52 +2,111 @@ import chromadb
 from chromadb.utils import embedding_functions
 import json
 import os
-import openai
+import google.generativeai as genai
 from typing import Dict, List, Optional
+from dotenv import load_dotenv
 
-class OpenAIEmbeddingFunction(embedding_functions.EmbeddingFunction):
-    def __init__(self, model: str = "text-embedding-3-small"):
-        # Initialize the OpenAI client
-        self.client = openai.OpenAI(api_key=QuestionVectorStore._openai_api_key)
+# Load environment variables from .env
+load_dotenv()
+
+class GoogleEmbeddingFunction(embedding_functions.EmbeddingFunction):
+    def __init__(self, api_key: str, model: str = "embedding-001"):
+        # Initialize the Google Gemini API
         self.model = model
+        self.api_key = api_key
+        genai.configure(api_key=self.api_key)
 
     def __call__(self, texts: List[str]) -> List[List[float]]:
-        # Generate embeddings for a list of texts using OpenAI
+        # Generate embeddings for a list of texts using Google
         try:
-            print(f"Generating embeddings for {len(texts)} texts using model {self.model}")
-            response = self.client.embeddings.create(
-                model=self.model,
-                input=texts
-            )
-            embeddings = [embedding.embedding for embedding in response.data]
+            print(f"Generating embeddings for {len(texts)} texts using Google model {self.model}")
+            embeddings = []
+            
+            # Ensure texts are not empty
+            texts = [text if text.strip() else "Empty text" for text in texts]
+            
+            for text in texts:
+                response = genai.embed_content(
+                    model=f"models/{self.model}",
+                    content=text,
+                    task_type="retrieval_document"
+                )
+                
+                # Verify response has expected format
+                if isinstance(response, dict) and "embedding" in response:
+                    embeddings.append(response["embedding"])
+                else:
+                    print(f"Error: Unexpected response format: {type(response)}")
+                    embeddings.append([0.0] * 768)  # Zero vector as fallback
+                    
             print(f"Successfully generated embeddings: {len(embeddings)} embeddings")
             return embeddings
         except Exception as e:
             print(f"Error generating embeddings: {str(e)}")
-            # Return zero vectors as fallback (1536 dimensions for text-embedding-3-small)
-            return [[0.0] * 1536 for _ in texts]
+            # Return zero vectors as fallback (768 dimensions for Google embeddings)
+            return [[0.0] * 768 for _ in texts]
 
 class QuestionVectorStore:
-    _openai_api_key = None
+    # Load API keys from environment variables
+    _openai_api_key = os.getenv('OPENAI_API_KEY')
+    _google_api_key = os.getenv('GOOGLE_API_KEY')
+    _force_recreate = False  # Class variable to control collection recreation
 
     def __init__(self, persist_directory: str = "data/vectorstore"):
         """Initialize the vector store for general knowledge questions"""
         
+        # Verify API key exists
+        if not QuestionVectorStore._google_api_key:
+            print("Warning: GOOGLE_API_KEY not found in environment variables")
+            
         self.persist_directory = persist_directory
         
         # Initialize the ChromaDB client
         self.client = chromadb.PersistentClient(path=persist_directory)
         
-        # Use the OpenAI embedding model
-        self.embedding_fn = OpenAIEmbeddingFunction()
+        # Use the Google embedding model
+        self.embedding_fn = GoogleEmbeddingFunction(api_key=QuestionVectorStore._google_api_key)
         
-        # Create or get the collection for general knowledge questions
-        self.collection = self.client.get_or_create_collection(
-            name="general_knowledge_questions",
-            embedding_function=self.embedding_fn,
-            metadata={"description": "General knowledge questions in Spanish"}
-        )
-        print(f"Initialized QuestionVectorStore with collection: {self.collection.name}")
+        # Try to get existing collection or create a new one
+        try:
+            # Only delete if first time or force recreation
+            if QuestionVectorStore._force_recreate:
+                try:
+                    print("Deleting existing collection to recreate it...")
+                    self.client.delete_collection("general_knowledge_questions")
+                    print("Existing collection deleted.")
+                    # Reset flag to not delete in future instances
+                    QuestionVectorStore._force_recreate = False
+                except Exception as e:
+                    print(f"Note: {str(e)}")
+                    
+                # Create a new collection
+                self.collection = self.client.create_collection(
+                    name="general_knowledge_questions",
+                    embedding_function=self.embedding_fn,
+                    metadata={"description": "General knowledge questions in Spanish"}
+                )
+                print(f"Initialized new collection: {self.collection.name}")
+            else:
+                # Try to get existing collection
+                try:
+                    self.collection = self.client.get_collection(
+                        name="general_knowledge_questions",
+                        embedding_function=self.embedding_fn
+                    )
+                    print(f"Using existing collection: {self.collection.name}")
+                except Exception as e:
+                    print(f"No existing collection found, creating new one: {str(e)}")
+                    # If it doesn't exist, create it
+                    self.collection = self.client.create_collection(
+                        name="general_knowledge_questions",
+                        embedding_function=self.embedding_fn,
+                        metadata={"description": "General knowledge questions in Spanish"}
+                    )
+                    print(f"Initialized new collection: {self.collection.name}")
+        except Exception as e:
+            print(f"Error handling collection: {str(e)}")
+            raise
 
     def add_questions(self, questions: List[Dict], source_id: str):
         """Add questions to the vector store"""
@@ -70,7 +129,7 @@ class QuestionVectorStore:
             # Use the question text as the document for embeddings
             document = question.get('question', '')
             documents.append(document)
-            print(f"Prepared question {question_id}: {document[:50]}...")  # Muestra los primeros 50 caracteres
+            print(f"Prepared question {question_id}: {document[:50]}...")  # Show first 50 characters
         
         # Add to the collection
         print(f"Adding {len(ids)} questions to the collection")
@@ -140,15 +199,24 @@ class QuestionVectorStore:
             self.add_questions(questions, source_id)
             print(f"Indexed {len(questions)} questions from {filename}")
         else:
-            print(f"No questions found in {filename}")
+            print(f"No questions found to index in {filename}")
+            
+    def clear_collection(self):
+        """Clear all data from the collection"""
+        try:
+            print("Clearing collection data...")
+            self.collection.delete(where={})
+            print("Collection successfully cleared")
+            return True
+        except Exception as e:
+            print(f"Error clearing collection: {str(e)}")
+            return False
 
 if __name__ == "__main__":
+    # Forzar recreación de la colección al ejecutar este script directamente
+    QuestionVectorStore._force_recreate = True
+    
     # Example usage
-    openai_api_key = os.getenv('OPENAI_API_KEY')
-    if not openai_api_key:
-        print("Error: OPENAI_API_KEY not found in environment variables")
-        exit(1)
-    QuestionVectorStore._openai_api_key = openai_api_key
     store = QuestionVectorStore()
     
     # Index questions from JSON files
