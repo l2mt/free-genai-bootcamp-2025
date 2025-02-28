@@ -8,6 +8,7 @@ from typing import Dict
 import json
 from collections import Counter
 import re
+from datetime import datetime
  
 from backend.chat import OpenAIChat
 from backend.question_generator import QuestionGenerator
@@ -15,16 +16,13 @@ from backend.vector_store import QuestionVectorStore
 
 # Page config
 st.set_page_config(
-    page_title="Spanish Learning Assistant",
-    page_icon="🇪🇸",
-    layout="wide"
+    page_title="Spanish Listening Practice",
+    page_icon="🎧",
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
 # Initialize session state
-if 'transcript' not in st.session_state:
-    st.session_state.transcript = None
-if 'messages' not in st.session_state:
-    st.session_state.messages = []
 if 'question_generator' not in st.session_state:
     st.session_state.question_generator = None
 if 'current_question' not in st.session_state:
@@ -33,79 +31,39 @@ if 'feedback' not in st.session_state:
     st.session_state.feedback = None
 if 'selected_answer' not in st.session_state:
     st.session_state.selected_answer = None
+if 'correct_answers' not in st.session_state:
+    st.session_state.correct_answers = 0
+if 'total_questions' not in st.session_state:
+    st.session_state.total_questions = 0
+if 'question_history' not in st.session_state:
+    st.session_state.question_history = []
 
 def render_header():
     """Render the header section"""
-    st.title("Spanish Learning Assistant")
+    st.title("🎧 Spanish Listening Practice")
     st.markdown("""
-    Transform YouTube transcripts into interactive learning experiences for Spanish.
-    
-    This tool demonstrates:
-    - Basic LLM Capabilities
-    - RAG (Retrieval Augmented Generation)
-    - OpenAI Integration
-    - Agent-based Learning Systems
+    Practice your Spanish comprehension with interactive questions.
+    Select a topic and answer questions to improve your Spanish skills.
     """)
 
 def render_sidebar():
-    """Render the sidebar with component selection"""
+    """Render the sidebar with question history"""
     with st.sidebar:
-        st.header("Development Stages")
+        st.header("📚 Question History")
         
-        # Main component selection
-        selected_stage = st.radio(
-            "Select Stage:",
-            [
-                "1. Chat with GPT",
-                "2. Raw Transcript",
-                "3. Structured Data",
-                "4. RAG Implementation",
-                "5. Interactive Learning"
-            ]
-        )
-        
-        # Stage descriptions
-        stage_info = {
-            "1. Chat with GPT": """
-            **Current Focus:**
-            - Basic Spanish learning
-            - Understanding LLM capabilities
-            - Identifying limitations
-            """,
+        if not st.session_state.question_history:
+            st.info("No questions answered yet")
+            return
             
-            "2. Raw Transcript": """
-            **Current Focus:**
-            - YouTube transcript download
-            - Raw text visualization
-            - Initial data examination
-            """,
-            
-            "3. Structured Data": """
-            **Current Focus:**
-            - Text cleaning
-            - Dialogue extraction
-            - Data structuring
-            """,
-            
-            "4. RAG Implementation": """
-            **Current Focus:**
-            - Bedrock embeddings
-            - Vector storage
-            - Context retrieval
-            """,
-            
-            "5. Interactive Learning": """
-            **Current Focus:**
-            - Scenario generation
-            - Audio synthesis
-            - Interactive practice
-            """
-        }
-        
-        st.markdown("---")
-        st.markdown(stage_info[selected_stage])
-        
-        return selected_stage
+        for idx, hist in enumerate(reversed(st.session_state.question_history)):
+            with st.expander(f"Question {len(st.session_state.question_history) - idx}", expanded=False):
+                st.markdown(f"**Topic:** {hist['topic']}")
+                st.markdown(f"**Result:** {'✅ Correct' if hist['correct'] else '❌ Incorrect'}")
+                if st.button("Load Question", key=f"load_{idx}"):
+                    st.session_state.current_question = hist['question']
+                    st.session_state.feedback = None
+                    st.session_state.selected_answer = None
+                    st.rerun()
 
 def render_chat_stage():
     """Render an improved chat interface"""
@@ -315,46 +273,45 @@ def render_rag_stage():
 
 def render_interactive_stage():
     """Render the interactive learning stage with question generation"""
-    st.header("Interactive Spanish Learning")
     
     # Initialize question generator if it doesn't exist
     if not st.session_state.question_generator:
-        with st.spinner("Initializing question generator (this may take a moment on first run)..."):
+        with st.spinner("Initializing question generator..."):
             try:
-                # Make sure the vector database is loaded
-                st.info("Setting up the question system... This may take a moment on first run.")
-                # Force recreation of the collection only if necessary
-                QuestionVectorStore._force_recreate = False
-                vector_store = QuestionVectorStore()
-                # Check if the database has indexed questions
-                try:
-                    # Quick search test to verify if there's data
-                    test_result = vector_store.search_similar_questions("test", n_results=1)
-                    if not test_result:
-                        st.warning("Question database appears to be empty. Running initial indexing...")
-                        # Index example questions
-                        question_files = [
-                            os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 
-                                        "data/questions/R-kepxbu5fM.json")
-                        ]
-                        for filename in question_files:
-                            if os.path.exists(filename):
-                                vector_store.index_questions_file(filename)
-                            else:
-                                st.error(f"Question file not found: {filename}")
-                except Exception as e:
-                    st.warning(f"Error checking database: {str(e)}")
-                
-                # Now initialize the question generator
                 st.session_state.question_generator = QuestionGenerator()
-                st.success("Question generator ready!")
+                st.success("System ready!")
             except Exception as e:
-                st.error(f"Error initializing question generator: {str(e)}")
+                st.error(f"Error initializing: {str(e)}")
                 return
     
-    # Topic selector
-    topics = ["Astronomy", "Geography", "History", "Science", "Art", "Sports", "Other"]
-    selected_topic = st.selectbox("Select a topic:", topics)
+    # Metrics in one line
+    col1, col2, col3, _ = st.columns([1, 1, 1, 3])
+    with col1:
+        st.metric("Questions", st.session_state.total_questions)
+    with col2:
+        st.metric("Correct", st.session_state.correct_answers)
+    with col3:
+        accuracy = (st.session_state.correct_answers / st.session_state.total_questions * 100) if st.session_state.total_questions > 0 else 0
+        st.metric("Accuracy", f"{accuracy:.1f}%")
+    
+    # Topic selection
+    st.subheader("Choose a Topic")
+    topics = {
+        "Astronomy": "🌟",
+        "Geography": "🌍",
+        "History": "📚",
+        "Science": "🔬",
+        "Art": "🎨",
+        "Sports": "⚽",
+        "Other": "🔄"
+    }
+    
+    selected_topic = st.selectbox(
+        "Select a topic:",
+        options=list(topics.keys()),
+        format_func=lambda x: f"{topics[x]} {x}",
+        label_visibility="collapsed"
+    )
     
     # Custom topic field
     if selected_topic == "Other":
@@ -363,11 +320,57 @@ def render_interactive_stage():
     else:
         topic_to_use = selected_topic
     
-    # Button to generate question
-    if topic_to_use and st.button("Generate Question"):
+    # Generate button
+    generate_button = st.button("📝 Generate New Question", 
+                              use_container_width=True, 
+                              type="primary", 
+                              disabled=not topic_to_use)
+    
+    # CSS styles remain the same
+    st.markdown("""
+    <style>
+    .scenario-box {
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #f0f2f6;
+        margin-bottom: 20px;
+    }
+    .correct-option {
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #90EE90;
+        color: #000;
+        margin-bottom: 8px;
+    }
+    .incorrect-option {
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #FFB6C1;
+        color: #000;
+        margin-bottom: 8px;
+    }
+    .normal-option {
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #f0f2f6;
+        color: #000;
+        margin-bottom: 8px;
+        cursor: pointer;
+    }
+    .question-container {
+        margin-top: 20px;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        background-color: white;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
+    # Question generation logic
+    if topic_to_use and generate_button:
         with st.spinner(f"Generating question about '{topic_to_use}'..."):
             try:
-                # Generate question using RAG
                 question = st.session_state.question_generator.generate_similar_question(topic_to_use)
                 if question:
                     st.session_state.current_question = question
@@ -377,93 +380,96 @@ def render_interactive_stage():
                 else:
                     st.warning("Could not generate a question. Try a different topic.")
             except Exception as e:
-                st.error(f"Error generating question: {str(e)}")
+                st.error(f"Error: {str(e)}")
     
-    # Display the generated question
+    # Display generated question
     if st.session_state.current_question:
-        col1, col2 = st.columns([2, 1])
+        # Context and Question together
+        st.markdown("**📖 Context**")
+        context = st.session_state.current_question.get('Context', 'No context available')
+        st.write(context)
         
-        with col1:
-            st.subheader("Scenario (in Spanish)")
-            st.info(st.session_state.current_question.get('Context', 'No context available'))
-            
-            st.subheader("Question (in Spanish)")
-            st.write(st.session_state.current_question.get('Question', 'No question available'))
-            
-            # Display options as buttons
-            st.subheader("Options")
-            options = st.session_state.current_question.get('Options', [])
-            
-            for i, option in enumerate(options, 1):
-                # Disable buttons if there's already feedback
-                disabled = st.session_state.feedback is not None
-                if st.button(f"{i}. {option}", key=f"option_{i}", disabled=disabled):
-                    st.session_state.selected_answer = i
-                    # Get feedback
-                    try:
-                        feedback = st.session_state.question_generator.get_feedback(
-                            st.session_state.current_question, 
-                            st.session_state.selected_answer
-                        )
-                        st.session_state.feedback = feedback
-                        st.rerun()  # Update UI
-                    except Exception as e:
-                        st.error(f"Error getting feedback: {str(e)}")
+        st.markdown("**❓ Question**")
+        question = st.session_state.current_question.get('Question', 'No question available')
+        st.write(question)
         
-        with col2:
-            # Display feedback if it exists
-            if st.session_state.feedback:
-                st.subheader("Feedback")
-                
-                # Show if correct or incorrect
-                is_correct = st.session_state.feedback.get('correct', False)
-                if is_correct:
-                    st.success("Correct answer! 🎉")
+        # Options with improved display
+        st.markdown("**🎯 Options**")
+        options = st.session_state.current_question.get('Options', [])
+        
+        # Get correct answer if feedback exists
+        correct_answer = None
+        if st.session_state.feedback:
+            correct_answer = st.session_state.feedback.get('correct_answer', 1)
+        
+        # Option columns
+        option_cols = st.columns(2)
+        for i, option in enumerate(options, 1):
+            col_idx = (i - 1) % 2
+            with option_cols[col_idx]:
+                if st.session_state.feedback is None:
+                    # Option buttons before selection
+                    if st.button(
+                        f"{i}. {option}",
+                        key=f"option_{i}",
+                        use_container_width=True
+                    ):
+                        st.session_state.selected_answer = i
+                        try:
+                            feedback = st.session_state.question_generator.get_feedback(
+                                st.session_state.current_question, 
+                                st.session_state.selected_answer
+                            )
+                            st.session_state.feedback = feedback
+                            st.session_state.total_questions += 1
+                            if feedback.get('correct', False):
+                                st.session_state.correct_answers += 1
+                            
+                            # Add to history
+                            history_entry = {
+                                'topic': topic_to_use,
+                                'question': st.session_state.current_question,
+                                'correct': feedback.get('correct', False),
+                                'timestamp': str(datetime.now())
+                            }
+                            st.session_state.question_history.append(history_entry)
+                            
+                            st.rerun()
+                        except Exception as e:
+                            st.error(f"Error: {str(e)}")
                 else:
-                    st.error("Incorrect answer")
+                    # Show styled options after selection
+                    option_style = "incorrect-option"
+                    if i == correct_answer:
+                        option_style = "correct-option"
                     
-                # Show explanation
-                st.write("**Explanation:**")
-                st.write(st.session_state.feedback.get('explanation', 'No explanation available'))
-                
-                # Show correct answer
-                correct_answer_num = st.session_state.feedback.get('correct_answer', 1)
-                if correct_answer_num <= len(options):
-                    st.write(f"**Correct answer:** {correct_answer_num}. {options[correct_answer_num-1]}")
-                
-                # Show button for new question
-                if st.button("Generate New Question"):
-                    st.session_state.current_question = None
-                    st.session_state.feedback = None
-                    st.session_state.selected_answer = None
-                    st.rerun()  # Update UI
+                    st.markdown(f'<div class="{option_style}">{i}. {option}</div>', unsafe_allow_html=True)
+        
+        # Show feedback
+        if st.session_state.feedback:
+            is_correct = st.session_state.feedback.get('correct', False)
+            result_text = "✅ Correct!" if is_correct else "❌ Incorrect"
+            st.markdown(f"### {result_text}")
+            
+            # Explanation
+            explanation = st.session_state.feedback.get('explanation', 'No explanation available')
+            st.write(explanation)
+            
+            # Next question button
+            if st.button("📝 Next Question", 
+                       key="next_question",
+                       use_container_width=True,
+                       type="primary"):
+                st.session_state.current_question = None
+                st.rerun()
     else:
-        # Message when there's no generated question
-        st.info("Select a topic and click 'Generate Question' to start.")
+        # Initial message
+        st.info("👆 Select a topic and click 'Generate New Question' to start practicing.")
 
 def main():
     render_header()
-    selected_stage = render_sidebar()
-    
-    # Render appropriate stage
-    if selected_stage == "1. Chat with GPT":
-        render_chat_stage()
-    elif selected_stage == "2. Raw Transcript":
-        render_transcript_stage()
-    elif selected_stage == "3. Structured Data":
-        render_structured_stage()
-    elif selected_stage == "4. RAG Implementation":
-        render_rag_stage()
-    elif selected_stage == "5. Interactive Learning":
-        render_interactive_stage()
-    
-    # Debug section at the bottom
-    with st.expander("Debug Information"):
-        st.json({
-            "selected_stage": selected_stage,
-            "transcript_loaded": st.session_state.transcript is not None,
-            "chat_messages": len(st.session_state.messages)
-        })
+    render_sidebar()
+    render_interactive_stage()
 
 if __name__ == "__main__":
     main()
