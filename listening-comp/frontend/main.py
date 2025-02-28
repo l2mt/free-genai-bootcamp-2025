@@ -9,7 +9,8 @@ import json
 from collections import Counter
 import re
 from datetime import datetime
- 
+import subprocess
+
 from backend.chat import OpenAIChat
 from backend.question_generator import QuestionGenerator
 from backend.vector_store import QuestionVectorStore
@@ -37,6 +38,12 @@ if 'total_questions' not in st.session_state:
     st.session_state.total_questions = 0
 if 'question_history' not in st.session_state:
     st.session_state.question_history = []
+if 'audio_generator' not in st.session_state:
+    st.session_state.audio_generator = None
+if 'audio_path' not in st.session_state:
+    st.session_state.audio_path = None
+if 'is_generating_audio' not in st.session_state:
+    st.session_state.is_generating_audio = False
 
 def render_header():
     """Render the header section"""
@@ -271,6 +278,69 @@ def render_rag_stage():
         with col2:
             st.info("The response will appear here")
 
+def check_dependencies():
+    """Check if all required dependencies are available"""
+    try:
+        # Check ffmpeg
+        subprocess.run(['ffmpeg', '-version'], capture_output=True)
+        
+        # Check AWS credentials
+        if not (os.getenv('AWS_ACCESS_KEY_ID') and 
+                os.getenv('AWS_SECRET_ACCESS_KEY')):
+            return False, "AWS credentials not found in environment variables"
+        
+        return True, None
+    except FileNotFoundError:
+        return False, "ffmpeg not found. Please install ffmpeg."
+    except Exception as e:
+        return False, f"Error checking dependencies: {str(e)}"
+
+def render_audio_section():
+    """Render the audio generation and playback section"""
+    if st.session_state.current_question:
+        st.markdown("---")
+        st.markdown("### 🔊 Audio")
+        
+        # Initialize audio generator if needed
+        if not st.session_state.audio_generator:
+            deps_ok, error_msg = check_dependencies()
+            if not deps_ok:
+                st.error(f"Cannot generate audio: {error_msg}")
+                return
+            
+            try:
+                from backend.audio_generator import AudioGenerator
+                st.session_state.audio_generator = AudioGenerator()
+            except Exception as e:
+                st.error(f"Error initializing audio generator: {str(e)}")
+                return
+        
+        # Generate audio button
+        col1, col2 = st.columns([1, 3])
+        with col1:
+            if st.button("🎵 Generate Audio", 
+                        use_container_width=True,
+                        disabled=st.session_state.is_generating_audio):
+                try:
+                    st.session_state.is_generating_audio = True
+                    with st.spinner("Generating audio..."):
+                        audio_path = st.session_state.audio_generator.generate_audio(
+                            st.session_state.current_question
+                        )
+                        st.session_state.audio_path = audio_path
+                    st.success("Audio generated successfully!")
+                except Exception as e:
+                    st.error(f"Error generating audio: {str(e)}")
+                finally:
+                    st.session_state.is_generating_audio = False
+                    st.rerun()
+        
+        # Show audio player if audio is generated
+        if st.session_state.audio_path and os.path.exists(st.session_state.audio_path):
+            with open(st.session_state.audio_path, 'rb') as audio_file:
+                audio_bytes = audio_file.read()
+                st.audio(audio_bytes, format='audio/mp3')
+
 def render_interactive_stage():
     """Render the interactive learning stage with question generation"""
     
@@ -462,6 +532,9 @@ def render_interactive_stage():
                        type="primary"):
                 st.session_state.current_question = None
                 st.rerun()
+        
+        # Add audio section
+        render_audio_section()
     else:
         # Initial message
         st.info("👆 Select a topic and click 'Generate New Question' to start practicing.")
